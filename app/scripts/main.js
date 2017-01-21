@@ -1,3 +1,1 @@
-var html = MovieSearch.templates.exampletemplate();
-
-$('[data-app]').html(html);
+var ctrl = new Ctrl();

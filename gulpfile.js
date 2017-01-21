@@ -63,7 +63,8 @@ gulp.task('templates', () => {
       namespace: 'MovieSearch.templates' // change this to whatever you want
     }))
     .pipe($.concat('templates.js'))
-    .pipe(gulp.dest('.tmp/templates'));
+    .pipe(gulp.dest('.tmp/templates'))
+    .pipe(reload({stream: true}));
 });
 
 gulp.task('partials', function() {
@@ -79,7 +80,8 @@ gulp.task('partials', function() {
       }
     }))
     .pipe($.concat('partials.js'))
-    .pipe(gulp.dest('.tmp/templates'));
+    .pipe(gulp.dest('.tmp/templates'))
+    .pipe(reload({stream: true}));
 });
 
 gulp.task('html', ['styles', 'templates', 'partials', 'scripts'], () => {
