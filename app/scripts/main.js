@@ -1,1 +1,1 @@
-var ctrl = new Ctrl();
+var ctrl = new CtrlGlobal();

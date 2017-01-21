@@ -96,12 +96,72 @@ body {
 
 body {
   background-image: url('../images/background.jpg');
-  background-repeat: no-repeat;
+  background-repeat: repeat;
   background-size: cover;
-  padding-top: 60px;
+  padding-top: 90px;
   color: white;
 }
 
 .searchbox {
   width: 100%;
 }
+
+.movie-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+
+  width: 100%;
+  height: 0%;
+  padding: 0 30px;
+  text-align: center;
+
+  opacity: 0.9;
+
+  background-color: #FC6E51;
+  transition: all ease 200ms;
+
+  h2 {
+    font-size: 18px;
+  }
+
+  span {
+    text-transform: capitalize;
+  }
+}
+
+.movie-element {
+  height: 400px;
+  overflow: hidden;
+
+
+  img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: 50% 50%; 
+  }
+
+  margin-bottom: 30px;
+
+  &:first-child,
+  &:nth-child(6) {
+    @extend .col-md-offset-1;
+  }
+
+  a {
+    width: 100%;
+    height: 100%;
+    color: white;
+    position: relative;
+    display: block;
+    overflow: hidden;
+
+    &:hover > .movie-info {
+      height: 100%;
+      padding-top: 10%;
+    }
+  }
+}
+
+@import './components/preloader.scss'
