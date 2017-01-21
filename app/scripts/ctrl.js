@@ -45,16 +45,12 @@ class CtrlSearch {
 	                	});
 
 
-	                	if (firstCall) {
-	                		this.view.addContent('results', data);
-	                		this.view.recalcGrid();
-	                	} else {
+	                	if (!firstCall) {
 	                		this.view.removePreloader();
-	                		this.view.addContent('results', data);
-	                		this.view.recalcGrid();
 	                	}
 	                	
-
+	                	this.view.addContent('results', data);
+	                	this.view.recalcGrid();
 
 
 	                } else {	
