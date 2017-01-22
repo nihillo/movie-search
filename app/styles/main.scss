@@ -1,7 +1,7 @@
 $icon-font-path: '../fonts/';
 
 // bower:scss
-@import "bower_components/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
+@import 'bower_components/bootstrap-sass/assets/stylesheets/_bootstrap.scss';
 // endbower
 
 .browserupgrade {
@@ -97,9 +97,12 @@ body {
 body {
   background-image: url('../images/background.jpg');
   background-repeat: repeat;
-  background-size: cover;
+  // background-size: contain;
+  // background-attachment: fixed;
   padding-top: 90px;
   color: white;
+
+  font-family: 'Overpass', sans-serif;
 }
 
 .searchbox {
@@ -144,11 +147,6 @@ body {
 
   margin-bottom: 30px;
 
-  &:first-child,
-  &:nth-child(6) {
-    @extend .col-md-offset-1;
-  }
-
   a {
     width: 100%;
     height: 100%;
@@ -164,4 +162,62 @@ body {
   }
 }
 
-@import './components/preloader.scss'
+@import './components/preloader.scss';
+
+.navbar-inverse {
+   background-color: #FC6E51;
+
+  .navbar-brand {
+      color: white;
+      font-family: 'Kanit', sans-serif;
+      font-weight: 900;
+
+      &:hover {
+        background-color: lighten(#FC6E51, 10%);
+      }
+  }
+
+}
+
+.btn-search {
+  background-color: transparent;
+  color: white;
+
+  &:hover {
+    background-color: lighten(#FC6E51, 10%);
+    color: white;
+  }
+
+  &:focus {
+    background-color: transparent;
+    outline-color: transparent;
+    color: white;
+  }
+}
+
+
+.main-view {
+  padding-top: 10%;
+  text-align: center;
+}
+
+.main-view-brand {
+  font-family: 'Kanit', sans-serif;
+  font-weight: 900;
+  font-size: 86px;
+
+}
+
+.main-view-decorator {
+    width: 40%;
+    border-top-color: #FC6E51;
+}
+
+.main-view-text {
+  font-size: 22px;
+  font-style: italic;
+  width: 30%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 40px;
+}
