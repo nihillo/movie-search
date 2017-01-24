@@ -1,0 +1,38 @@
+
+<div class="detail-view row">
+	<div class="back-arrow" id="go-back"><i class="glyphicon glyphicon-arrow-left"></i></div>
+	<div class="col-md-2 col-md-offset-1">
+		<img src="{{Poster}}" alt="{{Title}} - Poster">
+	</div>
+	<div class="col-md-8">
+		<header>
+			<h1 class="detail-view-title">{{Title}}</h1>
+			
+			<p class="detail-view-text"><span class="capitalize">{{Type}}</span> - {{Year}}</p>
+			<p>{{Genre}}</p>
+		</header>
+		<section>
+			<p>{{Plot}}</p>
+			<table>
+				<tr>
+					<td>Director:</td>
+					<td>{{Director}}</td>
+				</tr>
+				<tr>
+					<td>Writer:</td>
+					<td>{{Writer}}</td>
+				</tr>
+				<tr>
+					<td>Cast:</td>
+					<td>{{Actors}}</td>
+				</tr>
+			</table>
+		</section>
+		<footer>
+			<p><i class="glyphicon glyphicon-star"></i>IMDB rating: <span class="badge">{{imdbRating}}</span></p>
+			<a target="self" href="http://www.imdb.com/title/{{imdbID}}" class="btn btn-default">IMDB</a>
+		</footer>
+		
+	</div>
+	
+</div>

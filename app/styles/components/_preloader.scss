@@ -6,8 +6,11 @@
 		-moz-box-sizing: border-box;
 }
 .cssload-container {
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	display: none;
 	margin: 19px auto 0 auto;
-	max-width: 545px;
 }
 
 .cssload-container ul li{

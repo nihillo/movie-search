@@ -1,26 +1,40 @@
 class CtrlGlobal {
 	constructor() {
-		this.view = new View('start');
+		this.view = new View();
 		this.listenSearch();
 	}
 
 
 	listenSearch() {
+		// $('#searchform').submit( (event) => {
+		// 	event.preventDefault();
+		// });
+
+		// $(window).keyup( () => {
+		// 	this.subctrl = new CtrlSearch();
+		// });
+
+
 		$('#searchform').submit( (event) => {
 			event.preventDefault();
-		});
+			var query = $('#query').val();
+			query = query.split(' ').join('+');
 
-		$(window).keyup( () => {
-			this.subctrl = new CtrlSearch();
+			window.location.replace('/#/search/' + query);
 		});
+	}
+}
 
+class CtrlHome {
+	constructor(){
+		this.view = new ViewHome();
 	}
 }
 
 class CtrlSearch {
-	constructor() {
-		this.view = new View('results');
-		this.query = $('#query').val();
+	constructor(query) {
+		this.view = new ViewSearch();
+		this.query = query;
 		this.lastPage = 1;
 		this.sendQuery(true);
 	}
@@ -29,7 +43,7 @@ class CtrlSearch {
 		var empty = /^\s+$/;
 
 		if (this.query && !empty.test(this.query) && this.query[this.query.length-1] != ' ') {
-			this.query = this.query.split(' ').join('+');
+			
 			var url = 'http://www.omdbapi.com/?s=' + this.query;
 			$.ajax({
 				method: 'GET',
@@ -46,24 +60,24 @@ class CtrlSearch {
 
 
 	                	if (!firstCall) {
-	                		this.view.removePreloader();
+	                		this.view.hidePreloader();
+
 	                	}
 	                	
-	                	this.view.addContent('results', data);
-	                	this.view.recalcGrid();
-
+	                	this.view.addMovies(data.Search);
 
 	                } else {	
 	                	if (this.view) {
-	                		this.view.removePreloader();
+	                		this.view.hidePreloader();
 	                	}
 	                	console.log(data.Error);
 	                }
 
 	                this.listenScroll();
+	                this.listenClick();
 	            },
 	            error: (xhr, ajaxOptions, thrownError) => {
-	            	this.view.removePreloader();
+	            	this.view.hidePreloader();
 			        console.log(thrownError);
 			    }
 	        });
@@ -76,7 +90,7 @@ class CtrlSearch {
 		        
 		        $(window).off('scroll');
 
-		        this.view.addPreloader();
+		        this.view.showPreloader();
 		        this.lastPage++;
 
 		        if (/&page=/.test(this.query)) {
@@ -86,9 +100,65 @@ class CtrlSearch {
 		        	this.query += '&page=' + this.lastPage;
 		        }
 
-		        this.sendQuery();
 
+		        this.sendQuery();		        	
 		   }
 		});
 	}
+
+	listenClick() {
+		$(document).on('click', '.movie-element a', function() {
+			$(window).off('scroll');
+		});
+	}
+}
+
+
+class CtrlDetail {
+	constructor(id) {
+		this.view = new ViewMovie();
+		this.id = id;
+		this.sendQuery();
+	}
+
+	sendQuery() {
+		var empty = /^\s+$/;
+
+		if (this.id && !empty.test(this.id) && this.id[this.id.length-1] != ' ') {
+			
+			var url = 'http://www.omdbapi.com/?i=' + this.id;
+			$.ajax({
+				method: 'GET',
+	            url: url,
+	            success: (data) => {
+	            	
+	                if (data.Response == 'True') {
+	                	
+	            		if (data.Poster == 'N/A') {
+	            			data.Poster = './images/noposter.png';
+	            		}
+						
+						this.view.renderContent(null, data);
+						this.listenBack();
+	                } else {	
+	                	console.log(data.Error);
+	                }
+
+	                
+	            },
+	            error: (xhr, ajaxOptions, thrownError) => {
+	            	this.view.hidePreloader();
+			        console.log(thrownError);
+			    }
+	        });
+		}
+	}
+
+	listenBack() {
+
+		$(document).on('click', '#go-back', function(){
+			window.history.back();
+			$(document).off('click');
+		});
+  	}
 }

@@ -1,61 +1,85 @@
 class View {
-	constructor(template, data) {
+	constructor() {
 		this.searchbox = $('#query');
 		this.renderBoard = $('[data-app]');
-
-		this.renderContent(template, data);
-	}
-
-	template(template, data) {
-		switch (template) {
-			case 'start':
-				return MovieSearch.templates.start();
-				
-			// case 'test':
-			// 	return MovieSearch.templates.test(data);
-
-			case 'results':
-				return MovieSearch.templates.results(data);
-
-			case 'preloader':
-				return MovieSearch.templates.preloader();
-				
-		}
 	}
 
 	renderContent(template, data) {
 		var d = data ? data : {};
-		this.renderBoard.html(this.template(template, data));
+		this.renderBoard.html(this.template(template, d));
 	}
 
 	addContent(template, data) {
 		var d = data ? data : {};
-		this.renderBoard.append(this.template(template, data));
+		this.renderBoard.append(this.template(template, d));
 	}
 
-	recalcGrid() {
-		var movieElements = $('.movie-element');
+	clearPrevContent() {
+		this.renderBoard.html('');
+	}
+}
 
-		var width = movieElements.innerWidth();
-		var height = width * 1.333;
-		
-		movieElements.css('height', height);
-
-		var i = 1;
-		while (i <= movieElements.length) {
-			$('.movie-element:nth-child('+ i +')').addClass('col-md-offset-1');
-			i += 5;
-		}
+class ViewHome extends View{
+	constructor() {
+		super();
+		this.renderContent(this.template());
 	}
 
-	addPreloader() {
-		var preloader = $('#preloader');
-		if (preloader.length === 0) {
-			this.addContent('preloader');
-		}
+	template(data) {
+		return MovieSearch.templates.start(data);
+	}
+}
+
+class ViewSearch extends View{
+	constructor() {
+		super();
+		this.clearPrevContent();
 	}
 
-	removePreloader() {
-		$('#preloader').remove();
+	template(template, data) {
+		return MovieSearch.templates.movie(data);
+	}
+
+	addMovies(movies) {
+
+		var i = 0;
+		var interv = setInterval(()=>{
+			let movie = movies[i];
+			this.addContent('movie', movie);
+			let movieElement = $('.movie-element:last-child');
+
+			let elementIndex = $('.movie-element:last-child').index();
+			if (elementIndex === 0 || (elementIndex%5) === 0) {
+				movieElement.addClass('col-md-offset-1');
+			}
+
+			movieElement.css('opacity', 0);
+			movieElement.fadeTo('slow', 1);
+
+			i++;
+			if (i >= movies.length) {
+				clearInterval(interv);
+			}
+		}, 100);
+	}
+
+	showPreloader() {
+		$('#preloader').show();
+	}
+
+	hidePreloader() {
+		$('#preloader').hide();
+	}
+}
+
+class ViewMovie extends View {
+	constructor() {
+		super();
+		this.clearPrevContent();
+		this.back = $('#go-back');
+	}
+
+	template(template, data) {
+		return MovieSearch.templates.detail(data);
 	}
 }
