@@ -8,11 +8,16 @@ $icon-font-path: '../fonts/';
 body {
   background-image: url('../images/background.jpg');
   background-repeat: repeat;
-  padding-top: 90px;
+  padding-top: 150px;
   padding-bottom: 200px;
   color: white;
 
   font-family: 'Overpass', sans-serif;
+
+  @media only screen and (min-width : 768px) {
+    padding-top: 90px;
+  }
+
 }
 
 .searchbox {
@@ -93,6 +98,14 @@ body {
 
 }
 
+.navbar-form {
+  border: 0;
+  @media only screen and (min-width : 768px) {
+    padding-left: 0;
+  }
+  
+}
+
 .btn-search {
   background-color: transparent;
   color: white;
@@ -148,7 +161,9 @@ body {
 .main-view-brand, .detail-view-title {
   font-family: 'Kanit', sans-serif;
   font-weight: 900;
-  font-size: 86px;
+  @media only screen and (min-width : 768px) {
+    font-size: 86px;
+  }
 }
 
 .detail-view-title {
@@ -163,11 +178,16 @@ body {
 .main-view-text, .detail-view-text {
   font-size: 22px;
   font-style: italic;
-  width: 30%;
+  
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 40px;
+
+  @media only screen and (min-width : 768px) {
+    width: 30%;
+  }
 }
+
 
 .detail-view-text {
   margin-left: 0;
@@ -195,10 +215,10 @@ body {
 }
 
 .back-arrow {
-  position: absolute;
-  top: 12px;
+  position: fixed;
+  top: 150px;
   z-index: 2000;
-  left: 45px;
+  left: 15px;
 
   cursor: pointer;
 
@@ -210,4 +230,8 @@ body {
     color: lighten(#FC6E51, 10%);
   }
 
+
+  // @media only screen and (min-width : 992px) {
+  //   left: 45px;
+  // }
 }

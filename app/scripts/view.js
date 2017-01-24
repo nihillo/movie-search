@@ -49,9 +49,21 @@ class ViewSearch extends View{
 			let movieElement = $('.movie-element:last-child');
 
 			let elementIndex = $('.movie-element:last-child').index();
-			if (elementIndex === 0 || (elementIndex%5) === 0) {
-				movieElement.addClass('col-md-offset-1');
+
+			var windWidth = window.innerWidth;
+
+			// if (windWidth > 992 && windWidth <= 1200) {
+			// 	if (elementIndex === 0 || (elementIndex%3) === 0) {
+			// 		movieElement.addClass('col-md-offset-1');
+			// 	}
+			// }
+
+			if (windWidth > 1200) {
+				if (elementIndex === 0 || (elementIndex%5) === 0) {
+					movieElement.addClass('col-md-offset-1');
+				}
 			}
+			
 
 			movieElement.css('opacity', 0);
 			movieElement.fadeTo('slow', 1);
