@@ -20,6 +20,10 @@ class CtrlGlobal {
 			var query = $('#query').val();
 			query = query.split(' ').join('+');
 
+			while (query[query.length-1] == '+') {
+				query = query.slice(0, -1);
+			}
+
 			window.location.replace('/#/search/' + query);
 		});
 	}
@@ -42,7 +46,7 @@ class CtrlSearch {
 	sendQuery(firstCall = false) {
 		var empty = /^\s+$/;
 
-		if (this.query && !empty.test(this.query) && this.query[this.query.length-1] != ' ') {
+		if (this.query && !empty.test(this.query)) {
 			
 			var url = 'http://www.omdbapi.com/?s=' + this.query;
 			$.ajax({
